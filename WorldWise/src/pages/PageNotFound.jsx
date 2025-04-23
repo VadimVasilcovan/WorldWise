@@ -1,10 +1,10 @@
 import React from 'react'
 import PageNav from '../assets/components/PageNav'
 
-export default function Pricing() {
+export default function PageNotFound() {
   return (
     <div>
-        <PageNav/>
-        <h1>Pricing</h1></div>
+      <PageNav/>
+      <h1>PageNotFound</h1></div>
   )
 }
