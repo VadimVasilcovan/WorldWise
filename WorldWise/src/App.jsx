@@ -6,6 +6,7 @@ import Pricing from "./pages/Pricing";
 import AppLayout from "./pages/AppLayout";
 import "./App.css";
 import Login from "./pages/Login";
+import CityList from "./assets/components/CityList";
 
 function App() {
   return (
@@ -17,8 +18,8 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="app" element={<AppLayout />}>
           {/*index route is default child route which should be defined*/}
-          <Route index element ={<p>List of cities</p>}/>
-          <Route path="cities" element={<p>List of cities</p>} />
+          <Route index element ={<CityList/>}/>
+          <Route path="cities" element={<CityList/>} />
           <Route path="countries" element={<p>Countries</p>} />
           <Route path="form" element={<p>Form</p>} />
         </Route>
