@@ -7,8 +7,30 @@ import AppLayout from "./pages/AppLayout";
 import "./App.css";
 import Login from "./pages/Login";
 import CityList from "./assets/components/CityList";
+import { useEffect, useState } from "react";
+
+const BASE_URL = "http://localhost:8000";
 
 function App() {
+  const [cities, setCities] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    async function fetchCities() {
+      try {
+        setIsLoading(true);
+        const res = await fetch(`${BASE_URL}/cities`);
+        const data = await res.json();
+        setCities(data);
+      } catch {
+        alert("There was an error loading data...");
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchCities();
+  }, []);
+  
   return (
     <BrowserRouter>
       <Routes>
@@ -18,8 +40,14 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="app" element={<AppLayout />}>
           {/*index route is default child route which should be defined*/}
-          <Route index element ={<CityList/>}/>
-          <Route path="cities" element={<CityList/>} />
+          <Route
+            index
+            element={<CityList cities={cities} isLoading={isLoading} />}
+          />
+          <Route
+            path="cities"
+            element={<CityList cities={cities} isLoading={isLoading} />}
+          />
           <Route path="countries" element={<p>Countries</p>} />
           <Route path="form" element={<p>Form</p>} />
         </Route>
