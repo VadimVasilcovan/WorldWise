@@ -10,6 +10,7 @@ const formatDate = (date) =>
   }).format(new Date(date));
 
 export default function CityItem({city}) {
+  console.log(city)
     const {cityName, emoji, date} = city
   return (
     <li className={styles.cityItem}>
