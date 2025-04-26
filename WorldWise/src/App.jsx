@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import "./App.css";
@@ -35,9 +35,8 @@ function App() {
     }
     fetchCities();
   }, []);
-  
+
   return (
-   
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -45,24 +44,24 @@ function App() {
         <Route path="pricing" element={<Pricing />} />
         <Route path="login" element={<Login />} />
         <Route path="app" element={<AppLayout />}>
-          {/*index route is default child route which should be defined*/}
-          <Route
-            indexW
-            element={<CityList cities={cities} isLoading={isLoading} />}
-          />
+          {/*index route is default child route which should be defined and <Navigate/> 
+           bring by defauld the required path in URL automaticly when the component is mounted*/}
+          <Route index element={<Navigate replace to="cities" />} />
           <Route
             path="cities"
             element={<CityList cities={cities} isLoading={isLoading} />}
           />
-          <Route path="cities/:id"  element={<City/>}/>
-          <Route path="countries" element={<CountriesList  cities={cities} isLoading={isLoading}/>} />
-          <Route path="form" element={<Form/>} />
+          <Route path="cities/:id" element={<City />} />
+          <Route
+            path="countries"
+            element={<CountriesList cities={cities} isLoading={isLoading} />}
+          />
+          <Route path="form" element={<Form />} />
         </Route>
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
   );
- 
 }
 
 export default App;
