@@ -11,6 +11,7 @@ import AppLayout from "./pages/AppLayout";
 import Login from "./pages/Login";
 import CityList from "./assets/components/CityList";
 import CountriesList from "./assets/components/CountriesList";
+import City from "./assets/components/City";
 
 const BASE_URL = "http://localhost:8000";
 
@@ -45,13 +46,14 @@ function App() {
         <Route path="app" element={<AppLayout />}>
           {/*index route is default child route which should be defined*/}
           <Route
-            index
+            indexW
             element={<CityList cities={cities} isLoading={isLoading} />}
           />
           <Route
             path="cities"
             element={<CityList cities={cities} isLoading={isLoading} />}
           />
+          <Route path="cities/:id"  element={<City/>}/>
           <Route path="countries" element={<CountriesList  cities={cities} isLoading={isLoading}/>} />
           <Route path="form" element={<p>Form</p>} />
         </Route>
