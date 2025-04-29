@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 
-
 import styles from "./Form.module.css";
 import Button from "./Button";
 import BackButton from "./BackButton";
@@ -16,7 +15,6 @@ export function convertToEmoji(countryCode) {
 }
 
 function Form() {
-
   const [cityName, setCityName] = useState("");
   const [country, setCountry] = useState("");
   const [date, setDate] = useState(new Date());
@@ -53,9 +51,8 @@ function Form() {
       </div>
 
       <div className={styles.buttons}>
-        <Button type='primary'>Add</Button>
-        <BackButton/>
-        
+        <Button type="primary">Add</Button>
+        <BackButton />
       </div>
     </form>
   );
