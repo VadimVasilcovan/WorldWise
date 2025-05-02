@@ -9,6 +9,8 @@ import Button from "./Button";
 import BackButton from "./BackButton";
 import Message from "./Message.jsx";
 import Spinner from "./Spinner.jsx";
+import { useCities } from "../../contexts/CitiesContext.jsx";
+import { useNavigate } from "react-router-dom";
 
 export function convertToEmoji(countryCode) {
   const codePoints = countryCode
@@ -22,6 +24,8 @@ const BASE_URL = "https://api.bigdatacloud.net/data/reverse-geocode-client";
 
 function Form() {
   const [lat, lng] = useUrlPosition();
+  const { createCity, isLoading } = useCities();
+  const navigate = useNavigate();
   const [cityName, setCityName] = useState("");
   const [isLoadingGeocoding, setIsLoadingGeoCoding] = useState(false);
   const [country, setCountry] = useState("");
@@ -32,7 +36,7 @@ function Form() {
 
   useEffect(
     function () {
-      if(!lat && !lng) return;
+      if (!lat && !lng) return;
       async function fetchCityData() {
         try {
           setIsLoadingGeoCoding(true);
@@ -60,28 +64,32 @@ function Form() {
     [lat, lng]
   );
 
-  function handleSubmit(e){
+  async function handleSubmit(e) {
     e.preventDefault();
     if (!cityName) return;
 
     const newCity = {
       cityName,
       country,
-      emoji, 
+      emoji,
       date,
       notes,
-      position: {lat, lng}
-
-    }
-    console.log(newCity)
+      position: { lat, lng },
+    };
+    await createCity(newCity);
+    navigate ("/app/cities")
   }
 
   if (isLoadingGeocoding) return <Spinner />;
-  if (!lat && !lng) return <Message message='Start by clicking somewhere on the map'/>
+  if (!lat && !lng)
+    return <Message message="Start by clicking somewhere on the map" />;
   if (geoCodingError) return <Message message={geoCodingError} />;
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}> 
+    <form
+      className={`${styles.form} ${isLoading ? styles.loading : ""}`}
+      onSubmit={handleSubmit}
+    >
       <div className={styles.row}>
         <label htmlFor="cityName">City name</label>
         <input
