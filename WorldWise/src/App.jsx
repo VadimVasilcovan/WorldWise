@@ -13,6 +13,7 @@ import City from "./assets/components/City";
 import Form from "./assets/components/Form";
 import { CityProvider } from "./contexts/CitiesContext";
 import { AuthProvider } from "./contexts/FakeAuthContext";
+import ProtectedRoute from "./pages/ProtectedRoute";
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
             <Route path="product" element={<Product />} />
             <Route path="pricing" element={<Pricing />} />
             <Route path="login" element={<Login />} />
-            <Route path="app" element={<AppLayout />}>
+            <Route path="app" element={<ProtectedRoute><AppLayout /></ProtectedRoute>}>
               {/*index route is default child route which should be defined and <Navigate replace/> 
            bring by defauld the required path in URL automaticly when the component is mounted*/}
               <Route index element={<Navigate replace to="cities" />} />
