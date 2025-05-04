@@ -25,7 +25,14 @@ function App() {
             <Route path="product" element={<Product />} />
             <Route path="pricing" element={<Pricing />} />
             <Route path="login" element={<Login />} />
-            <Route path="app" element={<ProtectedRoute><AppLayout /></ProtectedRoute>}>
+            <Route
+              path="app"
+              element={
+                <ProtectedRoute>
+                  <AppLayout />
+                </ProtectedRoute>
+              }
+            >
               {/*index route is default child route which should be defined and <Navigate replace/> 
            bring by defauld the required path in URL automaticly when the component is mounted*/}
               <Route index element={<Navigate replace to="cities" />} />
